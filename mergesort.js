@@ -13,7 +13,7 @@ var cluster = require('cluster');
  * cluster module setup creates merge.js as child processes
  */
     cluster.setupMaster({
-        exec : "merge.js"
+        exec : __dirname+"/merge.js"
     });
 
 /**
