@@ -8,7 +8,7 @@ installation:
 
 usage:</br>
 
-        var sort=require('merge-sort');
+        var sort=require('merge-sort-async');
         sort.mergeSort([9,4,5,3,2,3],function(err,result){
         console.log(result);
         })
