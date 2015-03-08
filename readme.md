@@ -1,7 +1,10 @@
-mergesort
-=========
+merge-sort-async
+================
 
-performs mergesort completely async and uses cluster module to perform merge sort</br>
+performs mergesort completely async and uses cluster module to perform merge sort</br></br>
+installation:
+
+        npm install merge-sort-async
 
 usage:</br>
 
