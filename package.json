@@ -3,5 +3,26 @@
   "version": "0.0.1",
   "dependencies": {
     "async": "^0.9.0"
-  }
+  },
+  "description": "merge sort using cluster module completely async ",
+  "main": "mergesort.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pdutt111/mergesort"
+  },
+  "keywords": [
+    "merge",
+    "sort",
+    "mergesort"
+  ],
+  "author": "Pariskshit Dutt <pdutt111@gmail.com> (http://www.pariskshitdutt.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pdutt111/mergesort/issues"
+  },
+  "homepage": "https://github.com/pdutt111/mergesort"
 }
