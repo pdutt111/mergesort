@@ -39,15 +39,15 @@ var workers=[];
                 function(callback){mergeSort(secondHalf,callback)}
             ], function(err,results){
                 //spawns a worker thread using cluster module
-                if(workers.length<500) {
-                   spawn(err,results,callback);
-                }else {
+                try {
+                    spawn(err, results, callback);
+                }catch(e){
                     var wait = setInterval(function () {
-                        if(workers.length<500) {
+                        try{
                             spawn(err,results,callback);
                             clearInterval(wait);
-                        }
-                    }, 10);
+                        }catch(e){}
+                    }, 1);
                 }
             });
 
