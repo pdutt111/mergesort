@@ -15,7 +15,7 @@ var cluster = require('cluster');
     cluster.setupMaster({
         exec : __dirname+"/merge.js"
     });
-
+var workers=[];
 /**
  * performs mergesort and returns the sorted array in callback
  * @param unsorted array
@@ -39,22 +39,36 @@ var cluster = require('cluster');
                 function(callback){mergeSort(secondHalf,callback)}
             ], function(err,results){
                 //spawns a worker thread using cluster module
-                var worker=cluster.fork();
-                //passes the spliced arrays to the worker for processing
-                worker.send({first:results[0],second:results[1]});
-                //handles the messages recieved from the worker
-                worker.on('message', function(msg) {
-
-                    //completes the merge and passes the result to the callback
-                    callback(null,msg.result);
-                    //the job of the worker is done here so its killed
-                    worker.kill();
-                });
+                if(workers.length<500) {
+                   spawn(err,results,callback);
+                }else {
+                    var wait = setInterval(function () {
+                        if(workers.length<500) {
+                            spawn(err,results,callback);
+                            clearInterval(wait);
+                        }
+                    }, 10);
+                }
             });
 
         } else {
             //passes the single object array to the callback because its already sorted
             callback(null,arr);
         }
+    };
+    function spawn(err,results,callback){
+        var worker = cluster.fork();
+        workers.push(worker);
+        //passes the spliced arrays to the worker for processing
+        worker.send({first: results[0], second: results[1]});
+        //handles the messages recieved from the worker
+        worker.on('message', function (msg) {
+
+            //completes the merge and passes the result to the callback
+            callback(null, msg.result);
+            //the job of the worker is done here so its killed
+            worker.kill();
+            delete workers[worker];
+        });
     }
 
